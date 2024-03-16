@@ -1,0 +1,23 @@
+[tool.poetry]
+name = "lab5"
+version = "0.0.1"
+description = "Stepanov Leonid"
+authors = ["Your Name <you@example.com>"]
+license = "MIT LECENSE"
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "3.9.18"
+
+
+[tool.poetry.group.dev.dependencies]
+isort = "^5.13.2"
+flake8 = "^7.0.0"
+black = "^24.3.0"
+
+[tool.black]
+line-length = 79
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
