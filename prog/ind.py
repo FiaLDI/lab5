@@ -110,36 +110,8 @@ def main():
         help="The count",
     )
 
-    add_home = subparsers.add_parser(
-        "addhome", parents=[file_parser], help="Add a new product on home dir"
-    )
-    add_home.add_argument(
-        "-n",
-        "--name",
-        action="store",
-        required=True,
-        help="The product's name",
-    )
-    add_home.add_argument(
-        "-m", "--market", action="store", help="The market's name"
-    )
-    add_home.add_argument(
-        "-c",
-        "--count",
-        action="store",
-        type=int,
-        required=True,
-        help="The count",
-    )
-
     _ = subparsers.add_parser(
         "display", parents=[file_parser], help="Display all products"
-    )
-
-    _ = subparsers.add_parser(
-        "displayhome",
-        parents=[file_parser],
-        help="Display all products on home dir",
     )
 
     info = subparsers.add_parser(
@@ -157,28 +129,20 @@ def main():
 
     args = parser.parse_args()
     is_dirty = False
-    is_home = False
     home_dir = pathlib.Path.home()
 
     if os.path.exists(args.filename):
         products = load_products(args.filename)
-    elif pathlib.Path(home_dir / args.filename).exists():
+    elif pathlib.Path(f'{home_dir / args.filename}').exists():
         products = load_products(home_dir / args.filename)
     else:
         products = []
-    # Добавить работника.
+    
     if args.command == "add":
         products = add_product(products, args.name, args.market, args.count)
         is_dirty = True
 
-    elif args.command == "addhome":
-        products = add_product(products, args.name, args.market, args.count)
-        is_home = True
-
     elif args.command == "display":
-        display_products(products)
-
-    elif args.command == "displayhome":
         display_products(products)
 
     elif args.command == "info":
@@ -187,10 +151,6 @@ def main():
 
     if is_dirty:
         save_products(args.filename, products)
-
-    if is_home:
-        save_products(home_dir / args.filename, products)
-
 
 if __name__ == "__main__":
     main()
