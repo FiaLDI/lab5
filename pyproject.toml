@@ -17,6 +17,7 @@ black = "^24.3.0"
 
 [tool.black]
 line-length = 79
+exclude =.git,__pycache__,docs/source/conf.py,build,dist,tests
 
 [build-system]
 requires = ["poetry-core"]
